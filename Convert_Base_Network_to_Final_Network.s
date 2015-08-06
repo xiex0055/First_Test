@@ -4,12 +4,15 @@
 
 *del voya*.prn
 
-
+int_network	= 'basezonehwy.net'
+out_network	= 'finalzonehwy.net'
+out_link	= 'link.dbf'
+out_node	= 'node.dbf'
 
 RUN PGM=NETWORK
 
-FILEI NETI=basezonehwy.net	;input base network
-FILEO NETO=finalzonehwy.net	;output final network
+FILEI NETI=@int_network@	;input base network
+FILEO NETO=@out_network@	;output final network
 
 
 if(li.1.tollgrp>2)	;HOT lane links with tollgrp>2
@@ -21,3 +24,22 @@ endif
 
 ENDRUN
 
+RUN PGM=NETWORK
+
+NETI = @out_network@
+
+/* Write out link file */
+
+linko= @out_link@,
+  format=DBF,
+  include=a(5),b(5),distance(7.2),jur(7),Screen(5),ftype(7),toll(9),tollgrp(5),
+           amlane(3),amlimit(3),pmlane(3),pmlimit(3),oplane(3),oplimit(3),edgeid(10),linkid(10),Netyear(8),Shape_Leng(7.2),
+           projectid(10)
+
+/* Write out node file */
+
+nodeo= @out_node@,
+  format=DBF,
+  include=n(6),x(8),y(8)
+
+ENDRUN
