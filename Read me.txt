@@ -1,0 +1,1 @@
+The script is created to convert a zonehwy network for the base run to a network for the final run. The only difference is limit codes for HOT-lane links (tollgrp>2). 
